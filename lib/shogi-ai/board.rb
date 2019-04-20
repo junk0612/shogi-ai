@@ -12,7 +12,6 @@ class ShogiAI::Board
     @squares[move.from.x - 1][move.from.y - 1] = nil
     @squares[move.to.x - 1][move.to.y - 1] = move.piece
     move.piece.promote if move.promote
-    puts to_s
   end
 
   def to_s
