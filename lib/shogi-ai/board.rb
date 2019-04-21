@@ -8,7 +8,22 @@ class ShogiAI::Board
     @squares[x - 1][y - 1]
   end
 
+  def black_king_captured?
+    @hands[:white].any? {|piece| piece.is_a?(ShogiAI::King) }
+  end
+
+  def white_king_captured?
+    @hands[:black].any? {|piece| piece.is_a?(ShogiAI::King) }
+  end
+
   def apply(move)
+    if (taken_piece = @squares[move.to.x - 1][move.to.y - 1]) != nil
+      turn = move.piece.black ? :black : :white
+      @hands[turn] << taken_piece
+      @hands[turn].sort_by!(&:sort_order)
+      taken_piece.demote
+      taken_piece.black = move.piece.black
+    end
     @squares[move.from.x - 1][move.from.y - 1] = nil
     @squares[move.to.x - 1][move.to.y - 1] = move.piece
     move.piece.promote if move.promote

@@ -24,6 +24,6 @@ class ShogiAI::Game
   end
 
   def ended?
-    false
+    @board.black_king_captured? || @board.white_king_captured?
   end
 end
