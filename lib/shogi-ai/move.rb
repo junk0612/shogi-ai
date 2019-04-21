@@ -18,15 +18,23 @@ class ShogiAI::Move
   attr_reader :piece
   attr_reader :promote
 
-  def initialize(usi_string, board)
-    from_str = usi_string[0..1]
-    to_str = usi_string[2..3]
-    from_x = from_str.to_i
-    from_y = from_str.codepoints[1] - ?a.codepoints[0] + 1
-    @from = Position.new(from_x, from_y)
-    @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.codepoints[0] + 1)
-    @piece = board.piece(from_x, from_y)
-    @promote = usi_string[4] == '+'
+  def initialize(usi_string, board, turn)
+    if usi_string[1] != '*'
+      from_str = usi_string[0..1]
+      to_str = usi_string[2..3]
+      from_x = from_str.to_i
+      from_y = from_str.codepoints[1] - ?a.codepoints[0] + 1
+      @from = Position.new(from_x, from_y)
+      @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.codepoints[0] + 1)
+      @piece = board.piece(from_x, from_y)
+      @promote = usi_string[4] == '+'
+    else
+      to_str = usi_string[2..3]
+      @from = nil
+      @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.codepoints[0] + 1)
+      @piece = board.hand(usi_string[0], turn)
+      @promote = false
+    end
   end
 
   def to_s

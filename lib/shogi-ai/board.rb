@@ -8,6 +8,10 @@ class ShogiAI::Board
     @squares[x - 1][y - 1]
   end
 
+  def hand(char, turn)
+    @hands[turn].select {|p| p.to_char == char }.first
+  end
+
   def black_king_captured?
     @hands[:white].any? {|piece| piece.is_a?(ShogiAI::King) }
   end
@@ -24,7 +28,11 @@ class ShogiAI::Board
       taken_piece.demote
       taken_piece.black = move.piece.black
     end
-    @squares[move.from.x - 1][move.from.y - 1] = nil
+    if move.from != nil
+      @squares[move.from.x - 1][move.from.y - 1] = nil
+    else
+      @hands.each {|_, pieces| pieces.delete(move.piece) }
+    end
     @squares[move.to.x - 1][move.to.y - 1] = move.piece
     move.piece.promote if move.promote
   end

@@ -25,6 +25,10 @@ module ShogiAI
       @promoted ? 'と' : '歩'
     end
 
+    def to_char
+      'P'
+    end
+
     def sort_order
       1
     end
@@ -33,6 +37,10 @@ module ShogiAI
   class Lance < Piece
     def to_kanji
       @promoted ? '杏' : '香'
+    end
+
+    def to_char
+      'L'
     end
 
     def sort_order
@@ -45,6 +53,10 @@ module ShogiAI
       @promoted ? '圭' : '桂'
     end
 
+    def to_char
+      'N'
+    end
+
     def sort_order
       3
     end
@@ -53,6 +65,10 @@ module ShogiAI
   class Silver < Piece
     def to_kanji
       @promoted ? '全' : '銀'
+    end
+
+    def to_char
+      'S'
     end
 
     def sort_order
@@ -65,6 +81,10 @@ module ShogiAI
       '金' unless @promoted
     end
 
+    def to_char
+      'G'
+    end
+
     def sort_order
       5
     end
@@ -73,6 +93,10 @@ module ShogiAI
   class Bishop < Piece
     def to_kanji
       @promoted ? '馬' : '角'
+    end
+
+    def to_char
+      'B'
     end
 
     def sort_order
@@ -85,6 +109,10 @@ module ShogiAI
       @promoted ? '龍' : '飛'
     end
 
+    def to_char
+      'R'
+    end
+
     def sort_order
       7
     end
@@ -93,6 +121,10 @@ module ShogiAI
   class King < Piece
     def to_kanji
       '玉' unless @promoted
+    end
+
+    def to_char
+      'K'
     end
 
     def sort_order

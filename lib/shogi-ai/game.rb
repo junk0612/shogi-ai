@@ -5,19 +5,21 @@ class ShogiAI::Game
 
   def initialize
     @board = ShogiAI::Board.new
+    @turn = :black
   end
 
   def play
     puts @board
     until ended?
       get_move_and_apply
+      @turn = @turn == :black ? :white : :black
     end
   end
 
   private
 
   def get_move_and_apply
-    move = ShogiAI::Move.new(gets, @board)
+    move = ShogiAI::Move.new(gets, @board, @turn)
     puts move.to_s
     @board.apply(move)
     puts @board
