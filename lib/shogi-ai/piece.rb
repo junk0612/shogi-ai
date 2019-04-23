@@ -74,13 +74,9 @@ module ShogiAI
     def moves(x, y)
       [
         if @black
-          (y - 1).downto(1).map {|y2|
-            [x, y2]
-          }
+          (y - 1).downto(1).map {|y2| [x, y2] }
         else
-          (y + 1).upto(9).map {|y2|
-            [x, y2]
-          }
+          (y + 1).upto(9).map {|y2| [x, y2] }
         end
       ]
     end
