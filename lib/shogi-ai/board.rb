@@ -7,6 +7,7 @@ class ShogiAI::Board
   end
 
   def piece(x, y)
+    pp x, y if @squares[x - 1].nil?
     @squares[x - 1][y - 1]
   end
 
@@ -30,7 +31,7 @@ class ShogiAI::Board
       taken_piece.demote
       taken_piece.black = move.piece.black
     end
-    if move.from != nil
+    if move.from != :hand
       @squares[move.from.x - 1][move.from.y - 1] = nil
     else
       @hands.each {|_, pieces| pieces.delete(move.piece) }

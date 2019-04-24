@@ -19,12 +19,7 @@ class ShogiAI::Game
   private
 
   def get_move_and_apply
-    move =
-      if @turn == :black
-        ShogiAI::Move.new(gets, @board, @turn)
-      else
-        ShogiAI::MoveGenerator.new(@board, @turn).generate.sample
-      end
+    move = ShogiAI::MoveGenerator.new(@board, @turn).generate.sample
     puts move.to_s
     @board.apply(move)
     puts @board

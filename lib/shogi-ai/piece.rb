@@ -56,6 +56,10 @@ module ShogiAI
     def projective?
       false
     end
+
+    def promotable?
+      true
+    end
   end
 
   class Lance < Piece
@@ -84,6 +88,10 @@ module ShogiAI
     def projective?
       true
     end
+
+    def promotable?
+      true
+    end
   end
 
   class Knight < Piece
@@ -106,6 +114,10 @@ module ShogiAI
 
     def projective?
       false
+    end
+
+    def promotable?
+      true
     end
   end
 
@@ -134,6 +146,10 @@ module ShogiAI
 
     def projective?
       false
+    end
+
+    def promotable?
+      true
     end
   end
 
@@ -164,6 +180,10 @@ module ShogiAI
     def projective?
       false
     end
+
+    def promotable?
+      false
+    end
   end
 
   class Bishop < Piece
@@ -191,6 +211,10 @@ module ShogiAI
     def projective?
       true
     end
+
+    def promotable?
+      true
+    end
   end
 
   class Rook < Piece
@@ -216,6 +240,10 @@ module ShogiAI
     end
 
     def projective?
+      true
+    end
+
+    def promotable?
       true
     end
   end
@@ -247,6 +275,10 @@ module ShogiAI
     end
 
     def projective?
+      false
+    end
+
+    def promotable?
       false
     end
   end

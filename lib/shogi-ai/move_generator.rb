@@ -19,10 +19,10 @@ class ShogiAI::MoveGenerator
               end
           end
 
-          moves.reject! {|ix, iy| (!@board.piece(ix, iy).nil? && @board.piece(ix, iy).friend?(@turn)) || (ix < 1 || iy < 1 || ix > 9 || iy > 9) }
+          moves.reject! {|ix, iy| (ix < 1 || iy < 1 || ix > 9 || iy > 9) || (!@board.piece(ix, iy).nil? && @board.piece(ix, iy).friend?(@turn)) }
           moves.map! {|ix, iy|
             usi_string = "#{x}#{(y - 1 + ?a.ord).chr}#{ix}#{(iy - 1 + ?a.ord).chr}"
-            ary = (@turn == :black && iy <= 3) || (@turn == :white && iy >= 7) ? [ShogiAI::Move.new("#{usi_string}+", @board, @turn)] : []
+            ary = ((@turn == :black && iy <= 3) || (@turn == :white && iy >= 7)) && piece.promotable? ? [ShogiAI::Move.new("#{usi_string}+", @board, @turn)] : []
             ary + [ShogiAI::Move.new(usi_string, @board, @turn)]
           }.flatten!
 
