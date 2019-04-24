@@ -1,4 +1,6 @@
 class ShogiAI::Board
+  attr_reader :hands
+
   def initialize
     initialize_squares
     setup_pieces

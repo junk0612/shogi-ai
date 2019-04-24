@@ -23,15 +23,15 @@ class ShogiAI::Move
       from_str = usi_string[0..1]
       to_str = usi_string[2..3]
       from_x = from_str.to_i
-      from_y = from_str.codepoints[1] - ?a.codepoints[0] + 1
+      from_y = from_str.codepoints[1] - ?a.ord + 1
       @from = Position.new(from_x, from_y)
-      @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.codepoints[0] + 1)
+      @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.ord + 1)
       @piece = board.piece(from_x, from_y)
       @promote = usi_string[4] == '+'
     else
       to_str = usi_string[2..3]
-      @from = nil
-      @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.codepoints[0] + 1)
+      @from = :hand
+      @to = Position.new(to_str.to_i, to_str.codepoints[1] - ?a.ord + 1)
       @piece = board.hand(usi_string[0], turn)
       @promote = false
     end

@@ -21,16 +21,33 @@ class ShogiAI::MoveGenerator
 
           moves.reject! {|ix, iy| (!@board.piece(ix, iy).nil? && @board.piece(ix, iy).friend?(@turn)) || (ix < 1 || iy < 1 || ix > 9 || iy > 9) }
           moves.map! {|ix, iy|
-            usi_string = "#{x}#{(y - 1 + ?a.codepoints[0]).chr}#{ix}#{(iy - 1 + ?a.codepoints[0]).chr}"
-            ary = (@turn == :black && iy <= 3) || (@turn == :white && iy >= 7) ? [ShogiAI::Move.new("#{usi_string}+", @board, @turn)] : []
-            ary + [ShogiAI::Move.new(usi_string, @board, @turn)]
+            usi_string = "#{x}#{(y - 1 + ?a.ord).chr}#{ix}#{(iy - 1 + ?a.ord).chr}"
+            ary = (@turn == :black && iy <= 3) || (@turn == :white && iy >= 7) ? [ShogiAI::Move.new("#{usi_string}+", @board, @turn).to_s] : []
+            ary + [ShogiAI::Move.new(usi_string, @board, @turn).to_s]
           }.flatten!
 
           acc2 + moves
         end
       end
 
-    from_hand = []
+    blank =
+      (1..9).reduce([]) {|acc1, x|
+        acc1 <<
+          (1..9).select {|y| @board.piece(x, y).nil? }.map {|y| [x, y] } +
+          [(1..9).any? {|y| !(piece = @board.piece(x, y)).nil? && piece.friend?(@turn) && piece.is_a?(ShogiAI::Pawn) }]
+    }
+
+    from_hand = blank.map {|array|
+      friend_fu_present = array.last
+      array[0..-2].map {|x, y|
+        @board.hands[@turn].map {|piece|
+          next if piece.is_a?(ShogiAI::Pawn) && friend_fu_present
+
+          usi_string = "#{piece.to_char}*#{x}#{(y - 1 + ?a.ord).chr}"
+          ShogiAI::Move.new(usi_string, @board, @turn).to_s
+        }.compact
+      }.flatten
+    }.flatten
 
     from_board + from_hand
   end
