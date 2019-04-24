@@ -11,7 +11,6 @@ class ShogiAI::Game
   def play
     puts @board
     until ended?
-      pp ShogiAI::MoveGenerator.new(@board, @turn).generate
       get_move_and_apply
       @turn = @turn == :black ? :white : :black
     end
@@ -20,7 +19,12 @@ class ShogiAI::Game
   private
 
   def get_move_and_apply
-    move = ShogiAI::Move.new(gets, @board, @turn)
+    move =
+      if @turn == :black
+        ShogiAI::Move.new(gets, @board, @turn)
+      else
+        ShogiAI::MoveGenerator.new(@board, @turn).generate.sample
+      end
     puts move.to_s
     @board.apply(move)
     puts @board

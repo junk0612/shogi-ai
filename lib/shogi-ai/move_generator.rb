@@ -22,8 +22,8 @@ class ShogiAI::MoveGenerator
           moves.reject! {|ix, iy| (!@board.piece(ix, iy).nil? && @board.piece(ix, iy).friend?(@turn)) || (ix < 1 || iy < 1 || ix > 9 || iy > 9) }
           moves.map! {|ix, iy|
             usi_string = "#{x}#{(y - 1 + ?a.ord).chr}#{ix}#{(iy - 1 + ?a.ord).chr}"
-            ary = (@turn == :black && iy <= 3) || (@turn == :white && iy >= 7) ? [ShogiAI::Move.new("#{usi_string}+", @board, @turn).to_s] : []
-            ary + [ShogiAI::Move.new(usi_string, @board, @turn).to_s]
+            ary = (@turn == :black && iy <= 3) || (@turn == :white && iy >= 7) ? [ShogiAI::Move.new("#{usi_string}+", @board, @turn)] : []
+            ary + [ShogiAI::Move.new(usi_string, @board, @turn)]
           }.flatten!
 
           acc2 + moves
@@ -44,7 +44,7 @@ class ShogiAI::MoveGenerator
           next if piece.is_a?(ShogiAI::Pawn) && friend_fu_present
 
           usi_string = "#{piece.to_char}*#{x}#{(y - 1 + ?a.ord).chr}"
-          ShogiAI::Move.new(usi_string, @board, @turn).to_s
+          ShogiAI::Move.new(usi_string, @board, @turn)
         }.compact
       }.flatten
     }.flatten
