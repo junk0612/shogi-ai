@@ -35,7 +35,7 @@ class ShogiAI::MoveGenerator
         acc1 <<
           (1..9).select {|y| @board.piece(x, y).nil? }.map {|y| [x, y] } +
           [(1..9).any? {|y| !(piece = @board.piece(x, y)).nil? && piece.friend?(@turn) && piece.is_a?(ShogiAI::Pawn) }]
-    }
+      }
 
     from_hand = blank.map {|array|
       friend_fu_present = array.last

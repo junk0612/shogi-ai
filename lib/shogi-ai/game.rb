@@ -6,6 +6,7 @@ class ShogiAI::Game
   def initialize
     @board = ShogiAI::Board.new
     @turn = :black
+    @brain = ShogiAI::Brain.new
   end
 
   def play
@@ -19,10 +20,10 @@ class ShogiAI::Game
   private
 
   def get_move_and_apply
-    move = ShogiAI::MoveGenerator.new(@board, @turn).generate.sample
+    moves = ShogiAI::MoveGenerator.new(@board, @turn).generate
+    move = @brain.select(moves)
     puts move.to_s
     @board.apply(move)
-    puts @board
   end
 
   def ended?

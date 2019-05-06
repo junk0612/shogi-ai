@@ -58,7 +58,7 @@ module ShogiAI
     end
 
     def promotable?
-      true
+      !@promoted
     end
   end
 
@@ -90,7 +90,7 @@ module ShogiAI
     end
 
     def promotable?
-      true
+      !@promoted
     end
   end
 
@@ -117,7 +117,7 @@ module ShogiAI
     end
 
     def promotable?
-      true
+      !@promoted
     end
   end
 
@@ -149,7 +149,7 @@ module ShogiAI
     end
 
     def promotable?
-      true
+      !@promoted
     end
   end
 
@@ -213,7 +213,7 @@ module ShogiAI
     end
 
     def promotable?
-      true
+      !@promoted
     end
   end
 
@@ -244,7 +244,7 @@ module ShogiAI
     end
 
     def promotable?
-      true
+      !@promoted
     end
   end
 
